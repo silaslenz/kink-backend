@@ -7,25 +7,24 @@ import (
 	"time"
 )
 
-func Sum(transactions []models.Transaction, from time.Time, to time.Time) decimal.Decimal {
+func Sum(transactions []models.Transaction, from time.Time, to time.Time) map[string]decimal.Decimal {
 	layout := "2006-01-02"
-	sum := decimal.NewFromInt(0)
-	println(from.String(), to.String())
+	sums := map[string]decimal.Decimal{}
 	for _, transaction := range transactions {
 		date, err := time.Parse(layout, transaction.Date)
 		if err != nil {
 			fmt.Println(err)
 		}
 		if dateBetween(date, from, to) {
-			println(transaction.Date, transaction.Title)
 			amount, err := decimal.NewFromString(transaction.Amount)
 			if err != nil {
 				fmt.Println(err)
 			}
-			sum = sum.Add(amount)
+			sums[transaction.Category] = sums[transaction.Category].Add(amount)
+			sums["total"] = sums["total"].Add(amount)
 		}
 	}
-	return sum
+	return sums
 }
 
 func dateBetween(date time.Time, from time.Time, to time.Time) bool {

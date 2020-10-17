@@ -20,7 +20,7 @@ func main() {
 	r.GET("/stats/:from/:to", func(c *gin.Context) {
 		from, _ := time.Parse("2006-1-2", c.Param("from"))
 		to, _ := time.Parse("2006-1-2", c.Param("to"))
-		c.JSON(200, gin.H{"total": Sum(dataparsers.ReadIcaBanken(testFilePath), from, to)})
+		c.JSON(200, Sum(dataparsers.ReadIcaBanken(testFilePath), from, to))
 	})
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
