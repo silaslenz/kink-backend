@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	cors "github.com/rs/cors/wrapper/gin"
+	"kink_api/classifier"
 	"kink_api/dataparsers"
 	"time"
 )
@@ -10,6 +11,7 @@ import (
 const testFilePath = "/home/silenz/downloads/kontohandelser2020-10-17.csv"
 
 func main() {
+	classifier.Train()
 	r := gin.Default()
 	r.Use(cors.Default())
 	r.GET("/transactions", func(c *gin.Context) {
