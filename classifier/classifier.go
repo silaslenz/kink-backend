@@ -14,7 +14,6 @@ import (
 // Trains based on csv with two columns, text and category
 func Train() *bayesian.Classifier {
 	categories := GetCategories()
-	fmt.Println(categories)
 
 	classifier := bayesian.NewClassifier(categories...)
 	records := readCsvFile("/home/silenz/Projects/kink/category_training_data.csv", ';')
